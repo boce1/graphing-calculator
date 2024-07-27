@@ -11,8 +11,11 @@ background_color = list(WHITE)
 camera_x = 0
 camera_y = 0
 
-move_x = None
-move_y = None
+dragging = False
+start_move_x = None
+start_move_y = None
+start_mouse_x = None
+start_mouse_y = None
 mouse_x, mouse_y = 0, 0
 
 pygame.display.set_caption("Graph calculator")
@@ -46,26 +49,24 @@ def invert_colors(event):
                 background_color[i] = 255 / 2 + abs(255 / 2 - background_color[i])
 
 def detect_moving(event):
-    global move_x, move_y
+    global start_move_x, start_move_y, dragging, start_mouse_x, start_mouse_y
     if event.type == pygame.MOUSEBUTTONDOWN and \
         event.button == 2:
-        move_x, move_y = camera_x, camera_y
+        start_move_x, start_move_y = camera_x, camera_y
+        start_mouse_x, start_mouse_y = mouse_x, mouse_y
+        dragging = True
     if event.type == pygame.MOUSEBUTTONUP and \
         event.button == 2:
-        move_x, move_y = None, None
+        start_move_x, start_move_y = None, None
+        dragging = False
 
-def move_camera(mouse_buttons, mouse_x, mouse_y):
+def move_camera(mouse_x, mouse_y):
     global camera_x, camera_y
-    # move_coef = 0.05
-    if mouse_buttons[1] and move_x != None and move_y != None:
-        # camera_x += (mouse_x - move_x) * move_coef
-        # camera_y += (mouse_y - move_y) * move_coef
-    #if mouse_buttons[1]:
-        distance_x = mouse_x - camera_x
-        distance_y = mouse_y - camera_y
-        camera_x = mouse_x - window_width // 2 + distance_x // 2
-        camera_y = mouse_y - window_height // 2 + distance_y // 2
-        #print(camera_x, window_width, distance_x)
+    if dragging:
+        distance_x = mouse_x - start_mouse_x
+        distance_y = mouse_y - start_mouse_y
+        camera_x = start_move_x + distance_x
+        camera_y = start_move_y + distance_y
 
 running = True
 
@@ -73,7 +74,6 @@ while running:
     window_width, window_height = window.get_size()
 
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    mouse_buttons = pygame.mouse.get_pressed()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -81,6 +81,6 @@ while running:
         invert_colors(event)
         detect_moving(event)
     draw_scene()
-    move_camera(mouse_buttons, mouse_x, mouse_y)
+    move_camera(mouse_x, mouse_y)
 
 pygame.quit()
