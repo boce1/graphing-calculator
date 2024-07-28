@@ -7,8 +7,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
-window_width = 800
-window_height = 800
+window_width = 900
+window_height = 900
 grid_color = list(BLACK)
 background_color = list(WHITE)
 dot_color = list(RED)
@@ -22,8 +22,8 @@ start_mouse_x = None
 start_mouse_y = None
 mouse_x, mouse_y = 0, 0
 
-limit_x = window_width // 2
-limit_y = window_height // 2
+limit_x = window_width
+limit_y = window_height
 
 unit = 10
 
@@ -33,7 +33,7 @@ y_axes_values = [x for x in range(-limit_y - window_height // 2, window_height +
 pygame.display.set_caption("Graph calculator")
 window = pygame.display.set_mode((window_width, window_height))
 
-g1 = Graph(x_axes_values, window_width, window_height, unit, "x**2", dot_color)
+g1 = Graph(x_axes_values, window_width, window_height, unit, "x**0.5", dot_color)
 
 def draw_dots():
     for i in range(len(x_axes_values)):
@@ -57,7 +57,7 @@ def is_component_bright(component):
     return component > 256 / 2
 
 def invert_colors(event):
-    global grid_color, background_color
+    global grid_color, background_color, dot_color
     if event.type == pygame.KEYDOWN \
         and event.key == pygame.K_i: # key 'i'
         for i in range(3):
