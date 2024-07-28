@@ -33,7 +33,7 @@ y_axes_values = [x for x in range(-limit_y - window_height // 2, window_height +
 pygame.display.set_caption("Graph calculator")
 window = pygame.display.set_mode((window_width, window_height))
 
-g1 = Graph(x_axes_values, window_width, window_height, unit, "x + 50", dot_color)
+g1 = Graph(x_axes_values, window_width, window_height, unit, "x**2", dot_color)
 
 def draw_dots():
     for i in range(len(x_axes_values)):
