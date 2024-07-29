@@ -52,9 +52,9 @@ def create_graphs():
             stripped_line = line.strip()
             try:
                 graphs.append(Graph(x_axes_values, window_width, window_height, unit, stripped_line, dot_colors[index]))
+                index += 1
             except SyntaxError:
                 pass # if graph_input has new_line character
-            index += 1
 
 def draw_dots():
     for i in range(len(x_axes_values)):
