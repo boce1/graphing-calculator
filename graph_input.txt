@@ -1,7 +1,13 @@
 0.01 * x ** 2
 
 0.005 * x**3
-
+asdasd
 x
 x + 20
 x * 4
+
+
+zakleo se bumbar i u cvet i u med
+
+0.00001 * 1 ** x
+da ce na livadi na napravi red

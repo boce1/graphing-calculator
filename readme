@@ -1,0 +1,11 @@
+This is simple graph calculator made with Python using Pygame graphic library
+
+With left mouse click user can move the camera
+
+Function that user wants to display can be written in graph_input.txt with Python syntax
+
+Pressing "i" inverts colors
+
+Pressing "o" enables/disables dots
+
+Pressing "r" or "spacebar" read from the input file and reloads functions on the screen

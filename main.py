@@ -55,6 +55,8 @@ def create_graphs():
                 index += 1
             except SyntaxError:
                 pass # if graph_input has new_line character
+            except NameError:
+                pass # if line isnt formula in Python syntax
 
 def draw_dots():
     for i in range(len(x_axes_values)):
