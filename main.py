@@ -50,7 +50,10 @@ def create_graphs():
             if index >= len(dot_colors):
                 index = 0
             stripped_line = line.strip()
-            graphs.append(Graph(x_axes_values, window_width, window_height, unit, stripped_line, dot_colors[index]))
+            try:
+                graphs.append(Graph(x_axes_values, window_width, window_height, unit, stripped_line, dot_colors[index]))
+            except SyntaxError:
+                pass # if graph_input has new_line character
             index += 1
 
 def draw_dots():
