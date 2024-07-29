@@ -132,6 +132,12 @@ def move_camera(mouse_x, mouse_y):
         if camera_y < -limit_y or camera_y > limit_y:
             camera_y = temp_camera_y
 
+def refresh_functions(event):
+    global graphs
+    if event.type == pygame.KEYDOWN \
+        and (event.key == pygame.K_r or event.key == pygame.K_SPACE):
+        del graphs[:]
+        create_graphs()
 
 running = True
 create_graphs()
@@ -144,6 +150,7 @@ while running:
         invert_colors(event)
         detect_moving(event)
         control_dots(event)
+        refresh_functions(event)
     draw_scene()
     move_camera(mouse_x, mouse_y)
 
