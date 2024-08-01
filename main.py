@@ -33,6 +33,7 @@ limit_x = 4 * window_width
 limit_y = 4 * window_height
 
 unit = 10
+zoom_unit = unit
 
 x_axes_values = [x for x in range(-limit_x - window_width // 2, window_width + limit_x + 1, unit)]
 y_axes_values = [x for x in range(-limit_y - window_height // 2, window_height + limit_y + 1, unit)]
@@ -144,6 +145,26 @@ def refresh_functions(event):
         del graphs[:]
         create_graphs()
 
+def zoom(event):
+    if event.type == pygame.MOUSEWHEEL:
+        return event.y
+
+def update_graphs(event):
+    global graphs, zoom_unit
+    if zoom(event):
+        if zoom(event) > 0:
+            zoom_unit -= 1
+            #print('lol')
+        else:
+            zoom_unit += 1
+
+        if zoom_unit < 1:
+            zoom_unit = 1
+
+        coef = unit / zoom_unit
+        for g in graphs:
+            g.update(x_axes_values, window_width, window_height, coef)
+
 running = True
 create_graphs()
 while running:
@@ -156,6 +177,7 @@ while running:
         detect_moving(event)
         control_dots(event)
         refresh_functions(event)
+        update_graphs(event)
     draw_scene()
     move_camera(mouse_x, mouse_y)
 

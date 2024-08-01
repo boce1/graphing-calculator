@@ -35,3 +35,17 @@ class Graph:
                 except TypeError:
                     pass # int overflow
         self.draw_dots(window, camera_x, camera_y, visible)
+
+    def update(self, x_vals, window_width, window_height, coefitient):
+        self.x_values = [val * coefitient + window_width // 2 for val in x_vals]
+        self.y_values = []
+        for i in range(len(self.x_values)):
+            try:
+                val = window_height // 2 - eval(self.function.replace("x", f"({x_vals[i]})"))
+                if type(val) != complex:
+                    self.y_values.append(val)
+                else:
+                    self.y_values.append(None)
+
+            except ZeroDivisionError:
+                self.y_values.append(None)
