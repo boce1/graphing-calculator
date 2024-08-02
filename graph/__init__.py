@@ -1,15 +1,18 @@
 import pygame
+from math import factorial
 
 class Graph:
     def __init__(self, x_vals, window_width, window_height ,unit, function, color):
-        self.unit = unit
         self.function = function
+        self.replace_sin()
+        self.replace_cos()
         self.color = color
-        self.x_values = [val + window_width // 2 for val in  x_vals]
+        self.x_parameters = [val // unit for val in x_vals]
+        self.x_values = [val * unit + window_width // 2 for val in self.x_parameters]
         self.y_values = []
-        for i in range(len(self.x_values)):
+        for i in range(len(self.x_parameters)):
             try:
-                val = window_height // 2 - eval(self.function.replace("x", f"({x_vals[i]})"))
+                val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i]})"))
                 if type(val) != complex:
                     self.y_values.append(val)
                 else:
@@ -49,3 +52,41 @@ class Graph:
 
             except ZeroDivisionError:
                 self.y_values.append(None)
+
+    def replace_sin(self):
+        start_index = self.function.find("sin")
+        if start_index != -1:
+            parameter = ''
+            i = start_index + 4
+            while self.function[i] != ")":
+                parameter += self.function[i]
+                i += 1
+            sine_formula = self.sin_formula_calculator(parameter, 150)
+            self.function = self.function.replace(f"sin({parameter})", sine_formula)
+            
+    def sin_formula_calculator(self, parameter, n):
+        formula = ""
+        sign = 0
+        for i in range(1, n + 1, 2):
+            formula += f" + {(-1)**(sign)} * {parameter}**{i} / {factorial(i)}"
+            sign += 1
+        return formula
+    
+    def replace_cos(self):
+        start_index = self.function.find("cos")
+        if start_index != -1:
+            parameter = ''
+            i = start_index + 4
+            while self.function[i] != ")":
+                parameter += self.function[i]
+                i += 1
+            cos_formula = self.cos_formula_calculator(parameter, 150)
+            self.function = self.function.replace(f"cos({parameter})", cos_formula)
+            
+    def cos_formula_calculator(self, parameter, n):
+        formula = ""
+        sign = 0
+        for i in range(0, n + 1, 2):
+            formula += f" + {(-1)**(sign)} * {parameter}**{i} / {factorial(i)}"
+            sign += 1
+        return formula

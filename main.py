@@ -162,8 +162,8 @@ def update_graphs(event):
             zoom_unit = 1
 
         coef = unit / zoom_unit
-        for g in graphs:
-            g.update(x_axes_values, window_width, window_height, coef)
+        #for g in graphs:
+            #g.update(x_axes_values, window_width, window_height, coef)
 
 running = True
 create_graphs()
