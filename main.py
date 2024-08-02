@@ -153,17 +153,17 @@ def update_graphs(event):
     global graphs, zoom_unit
     if zoom(event):
         if zoom(event) > 0:
-            zoom_unit -= 1
+            zoom_unit += unit
             #print('lol')
         else:
-            zoom_unit += 1
+            zoom_unit -= unit
 
-        if zoom_unit < 1:
-            zoom_unit = 1
+        if zoom_unit < unit:
+            zoom_unit = unit
 
         coef = unit / zoom_unit
-        #for g in graphs:
-            #g.update(x_axes_values, window_width, window_height, coef)
+        for g in graphs:
+            g.update(window_height, coef)
 
 running = True
 create_graphs()

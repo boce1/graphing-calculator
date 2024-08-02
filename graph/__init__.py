@@ -4,6 +4,7 @@ from math import factorial
 class Graph:
     def __init__(self, x_vals, window_width, window_height ,unit, function, color):
         self.function = function
+        self.sinosoids_accuraccy = 20
         self.replace_sin()
         self.replace_cos()
         self.color = color
@@ -39,12 +40,11 @@ class Graph:
                     pass # int overflow
         self.draw_dots(window, camera_x, camera_y, visible)
 
-    def update(self, x_vals, window_width, window_height, coefitient):
-        self.x_values = [val * coefitient + window_width // 2 for val in x_vals]
+    def update(self, window_height, coefitient):
         self.y_values = []
         for i in range(len(self.x_values)):
             try:
-                val = window_height // 2 - eval(self.function.replace("x", f"({x_vals[i]})"))
+                val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i] * coefitient})")) / coefitient
                 if type(val) != complex:
                     self.y_values.append(val)
                 else:
@@ -61,7 +61,7 @@ class Graph:
             while self.function[i] != ")":
                 parameter += self.function[i]
                 i += 1
-            sine_formula = self.sin_formula_calculator(parameter, 150)
+            sine_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy)
             self.function = self.function.replace(f"sin({parameter})", sine_formula)
             
     def sin_formula_calculator(self, parameter, n):
@@ -80,7 +80,7 @@ class Graph:
             while self.function[i] != ")":
                 parameter += self.function[i]
                 i += 1
-            cos_formula = self.cos_formula_calculator(parameter, 150)
+            cos_formula = self.cos_formula_calculator(parameter, self.sinosoids_accuraccy)
             self.function = self.function.replace(f"cos({parameter})", cos_formula)
             
     def cos_formula_calculator(self, parameter, n):
