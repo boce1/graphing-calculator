@@ -154,7 +154,6 @@ def update_graphs(event):
     if zoom(event):
         if zoom(event) > 0:
             zoom_unit += unit
-            #print('lol')
         else:
             zoom_unit -= unit
 
@@ -162,8 +161,9 @@ def update_graphs(event):
             zoom_unit = unit
 
         coef = unit / zoom_unit
+
         for g in graphs:
-            g.update(window_height, coef)
+            g.update(window_height, coef, unit)
 
 running = True
 create_graphs()

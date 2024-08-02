@@ -13,7 +13,7 @@ class Graph:
         self.y_values = []
         for i in range(len(self.x_parameters)):
             try:
-                val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i]})"))
+                val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i]})")) * unit
                 if type(val) != complex:
                     self.y_values.append(val)
                 else:
@@ -40,11 +40,11 @@ class Graph:
                     pass # int overflow
         self.draw_dots(window, camera_x, camera_y, visible)
 
-    def update(self, window_height, coefitient):
+    def update(self, window_height, coefitient, unit):
         self.y_values = []
         for i in range(len(self.x_values)):
             try:
-                val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i] * coefitient})")) / coefitient
+                val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i] * coefitient})")) * unit / coefitient
                 if type(val) != complex:
                     self.y_values.append(val)
                 else:
