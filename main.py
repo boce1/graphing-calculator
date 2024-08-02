@@ -41,7 +41,7 @@ y_axes_values = [x for x in range(-limit_y - window_height // 2, window_height +
 graphs = []
 
 pygame.display.set_caption("Graph calculator")
-window = pygame.display.set_mode((window_width, window_height))
+window = pygame.display.set_mode((window_width, window_height), pygame.RESIZABLE)
 
 def create_graphs():
     global graphs
