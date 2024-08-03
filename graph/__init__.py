@@ -43,16 +43,16 @@ class Graph:
                     pass # int overflow
         self.draw_dots(window, camera_x, camera_y, visible)
 
-    def show_dot_cords(self, window, mouse_x, mouse_y, visible, color, unit, coef):
+    def show_dot_cords(self, window, mouse_x, mouse_y, visible, color, unit, coef, camera_x, camera_y):
         padding = unit
         if visible:
             for i in range(len(self.x_values)):
                 if self.x_values[i] != None and self.y_values[i] != None and \
-                    self.x_values[i] - padding < mouse_x < self.x_values[i] + padding and \
-                    self.y_values[i] - padding < mouse_y < self.y_values[i] + padding:
+                    camera_x + self.x_values[i] - padding < mouse_x < camera_x + self.x_values[i] + padding and \
+                    camera_y + self.y_values[i] - padding < mouse_y < camera_y + self.y_values[i] + padding:
                     msg = self.font.render(f"({self.x_parameters[i] * unit * coef:.2f}, {eval(self.function.replace("x", f"({self.x_parameters[i] * coef * unit})")):.2f})", True, color)
-                    x = self.x_values[i] - msg.get_width() // 2
-                    y = self.y_values[i] - msg.get_height()
+                    x = camera_x + self.x_values[i] - msg.get_width() // 2
+                    y = camera_y + self.y_values[i] - msg.get_height()
                     pygame.draw.rect(window, self.invert_color(color), (x, y, msg.get_width(), msg.get_height()))
                     window.blit(msg, (x, y))
                     break

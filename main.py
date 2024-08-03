@@ -77,7 +77,7 @@ def draw_scene():
     for graph in graphs:
         graph.link_dots(window, camera_x, camera_y, visible_dots)
     for graph in graphs:
-        graph.show_dot_cords(window, mouse_x, mouse_y, visible_dots, grid_color, unit, coef)
+        graph.show_dot_cords(window, mouse_x, mouse_y, visible_dots, grid_color, unit, coef, camera_x, camera_y)
 
     pygame.display.update()
 
