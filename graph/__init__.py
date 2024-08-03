@@ -54,7 +54,8 @@ class Graph:
                     if self.trig == "sin" or self.trig == "cos":
                         msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {eval(self.function.replace("x", f"({self.x_parameters[i] * coef * unit % 3.14159})")):.2f})", True, color)
                     else:
-                        msg = self.font.render(f"({self.x_parameters[i] * unit * coef:.2f}, {eval(self.function.replace("x", f"({self.x_parameters[i] * coef * unit})")):.2f})", True, color)
+                        val = eval(self.function.replace("x", f"({self.x_parameters[i] * coef * unit})"))
+                        msg = self.font.render(f"({self.x_parameters[i] * unit * coef:.2f}, {val:.2f})", True, color)
                     x = camera_x + self.x_values[i] - msg.get_width() // 2
                     y = camera_y + self.y_values[i] - msg.get_height()
                     pygame.draw.rect(window, self.invert_color(color), (x, y, msg.get_width(), msg.get_height()))
