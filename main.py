@@ -1,6 +1,5 @@
 import pygame
 from graph import Graph
-#from interface import user_menu
 
 pygame.init()
 
