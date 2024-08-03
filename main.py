@@ -13,8 +13,8 @@ CYAN = (0, 255, 255)
 PURPLE = (255, 0, 255)
 PINK = (255, 150, 150)
 
-window_width = 900
-window_height = 900
+window_width = 800
+window_height = 800
 grid_color = list(BLACK)
 background_color = list(WHITE)
 dot_colors = [list(RED), list(GREEN), list(BLUE), list(CYAN), list(PURPLE), list(PINK)]
@@ -34,6 +34,7 @@ limit_y = 4 * window_height
 
 unit = 10
 zoom_unit = unit
+coef = unit / zoom_unit
 
 x_axes_values = [x for x in range(-limit_x - window_width // 2, window_width + limit_x + 1, unit)]
 y_axes_values = [x for x in range(-limit_y - window_height // 2, window_height + limit_y + 1, unit)]
@@ -75,6 +76,8 @@ def draw_scene():
     draw_axis()
     for graph in graphs:
         graph.link_dots(window, camera_x, camera_y, visible_dots)
+    for graph in graphs:
+        graph.show_dot_cords(window, mouse_x, mouse_y, visible_dots, grid_color, unit, coef)
 
     pygame.display.update()
 
@@ -150,7 +153,7 @@ def zoom(event):
         return event.y
 
 def update_graphs(event):
-    global graphs, zoom_unit
+    global graphs, zoom_unit, coef
     if zoom(event):
         if zoom(event) > 0:
             zoom_unit += unit
