@@ -68,14 +68,14 @@ def draw_dots():
             x = camera_x + x_axes_values[i] - msg.get_width() // 2 + ((limit_x / window_width) * 100)
             y = camera_y + window_height // 2 + msg.get_height()
             window.blit(msg, (x, y))
-        pygame.draw.circle(window, grid_color, (camera_x + x_axes_values[i], camera_y + window_height / 2), 1)
+        pygame.draw.circle(window, grid_color, (camera_x + x_axes_values[i] + ((limit_x / window_width) * 100), camera_y + window_height / 2), 1)
     for i in range(len(y_axes_values)):
         if i % 5 == 0:
             msg = font_axes.render(f"{- y_axes_values[i] // unit * coef:.1f}", True, grid_color)
             x = camera_x + window_width // 2 - 1.5 * msg.get_width()
             y = camera_y + y_axes_values[i] - msg.get_height() // 2 + ((limit_y / window_height) * 100)
             window.blit(msg, (x, y))
-        pygame.draw.circle(window, grid_color, (camera_x + window_width / 2, camera_y + y_axes_values[i]), 1)
+        pygame.draw.circle(window, grid_color, (camera_x + window_width / 2, camera_y + y_axes_values[i] + ((limit_y / window_height) * 100)), 1)
 
 def draw_axis():
     pygame.draw.line(window, grid_color, (camera_x + window_width / 2, camera_y - limit_y), (camera_x + window_width / 2, camera_y + window_height + limit_y), 1)
