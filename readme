@@ -1,6 +1,6 @@
 This is simple graph calculator made with Python using Pygame graphic library
 
-With left mouse click user can move the camera
+With left mouse click user can move the camera, with scrool user can zoom
 
 Function that user wants to display can be written in graph_input.txt with Python syntax
 
@@ -8,4 +8,14 @@ Pressing "i" inverts colors
 
 Pressing "o" enables/disables dots
 
+When cursor is on some point when dots are enabled, user can see cordinates of that point
+
 Pressing "r" or "spacebar" read from the input file and reloads functions on the screen
+
+Note: For sin, cos and e**x, parameter must be in parenthesis
+
+example: cos(x), sin(2 * x), e**(x**0.5)
+
+Note: Parenthesis must be next to mentioned functoions, without any spaces
+
+Note: For e**arg: There must not be space between the exponent operator and other characters ("e" and "(" ). They must stand next to each other without any spaces.

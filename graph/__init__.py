@@ -11,6 +11,7 @@ class Graph:
         self.trig = None
         self.replace_sin()
         self.replace_cos()
+        self.replace_exp()
         self.color = color
         self.x_parameters = [val // unit for val in x_vals]
         self.x_values = [val * unit + window_width // 2 for val in self.x_parameters]
@@ -25,7 +26,9 @@ class Graph:
 
             except ZeroDivisionError:
                 self.y_values.append(None)
-        
+            except TypeError:
+                self.y_values.append(None)
+                
     def draw_dots(self, window, camera_x, camera_y, visible):
         if visible:
             for i in range(len(self.x_values)):
@@ -119,6 +122,17 @@ class Graph:
             formula += f" + {(-1)**(sign)} * ({parameter})**{i} / {factorial(i)}"
             sign += 1
         return formula
+
+    def replace_exp(self):
+        start_index = self.function.find("e")
+        if start_index != -1:
+            parameter = ''
+            i = start_index + 4
+            while self.function[i] != ")":
+                parameter += self.function[i]
+                i += 1
+            e_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+") + " + " + self.cos_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+")
+            self.function = self.function.replace(f"e**({parameter})", e_formula)
 
     def invert_color(self, color):
         new_color = [0] * 3
