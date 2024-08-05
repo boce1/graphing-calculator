@@ -1,5 +1,5 @@
 import pygame
-from math import factorial, sin, cos
+from math import factorial, pi, sin, cos
 
 pygame.font.init()
 
@@ -51,11 +51,16 @@ class Graph:
                 if self.x_values[i] != None and self.y_values[i] != None and \
                     camera_x + self.x_values[i] - padding < mouse_x < camera_x + self.x_values[i] + padding and \
                     camera_y + self.y_values[i] - padding < mouse_y < camera_y + self.y_values[i] + padding:
-                    if self.trig == "sin" or self.trig == "cos":
-                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {eval(self.function.replace("x", f"({self.x_parameters[i] * coef * unit % 3.14159})")):.2f})", True, color)
+
+                    if self.trig == "sin":
+                        val = sin(self.x_parameters[i] * coef)
+                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
+                    elif self.trig == "cos":
+                        val = cos(self.x_parameters[i] * coef)
+                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
                     else:
-                        val = eval(self.function.replace("x", f"({self.x_parameters[i] * coef * unit})"))
-                        msg = self.font.render(f"({self.x_parameters[i] * unit * coef:.2f}, {val:.2f})", True, color)
+                        val = eval(self.function.replace("x", f"({self.x_parameters[i] * coef})"))
+                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
                     x = camera_x + self.x_values[i] - msg.get_width() // 2
                     y = camera_y + self.y_values[i] - msg.get_height()
                     pygame.draw.rect(window, self.invert_color(color), (x, y, msg.get_width(), msg.get_height()))
@@ -111,7 +116,7 @@ class Graph:
         formula = ""
         sign = 0
         for i in range(0, n + 1, 2):
-            formula += f" + {(-1)**(sign)} * ({parameter})**{i} / {factorial(i)} / 3.14159"
+            formula += f" + {(-1)**(sign)} * ({parameter})**{i} / {factorial(i)}"
             sign += 1
         return formula
 
