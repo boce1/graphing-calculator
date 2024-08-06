@@ -1,6 +1,10 @@
-atan(x)
-sin(2 * x)
-2 * cos(x)
+e**cos(x + sin(2 * x)) + sin(x)
+
+lines with // are invalid functions
+they were usud for testing
+// atan(x)
+// sin(2 * x)
+// 2 * cos(x)
 // log(x)
 // tan(x)
 // asin(x)
