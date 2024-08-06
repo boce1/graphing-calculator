@@ -1,4 +1,6 @@
-cos(x)**2 + sin(x)**2
+abs(x - 5) + 5
+// e**(x)
+// cos(x)**2 + sin(x)**2
 // tan(x) - sin(3 *x) + 3 * e**(x**0.5)
 // x * sin(x) - cos(2 * x)
 // x / (x - 5)**2

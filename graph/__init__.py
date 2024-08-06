@@ -76,6 +76,8 @@ class Graph:
 
             except ZeroDivisionError:
                 self.y_values.append(None)
+            except TypeError:
+                self.y_values.append(None)
 
     def replace_sin(self):
         start_index = self.function.find("sin")
