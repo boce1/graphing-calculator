@@ -1,8 +1,11 @@
-e**cos(x + sin(2 * x)) + sin(x)
-x**x
 abs(cos(x))
+-abs(cos(x))
+cos(4 * x) * cos(x)
+
 lines with // are invalid functions
 they were usud for testing
+// e**cos(x + sin(2 * x)) + sin(x)
+// x**x
 // atan(x)
 // sin(2 * x)
 // 2 * cos(x)
