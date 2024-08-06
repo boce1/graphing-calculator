@@ -9,7 +9,6 @@ class Graph:
     def __init__(self, x_vals, window_width, window_height ,unit, function, color):
         self.function = function
         self.sinosoids_accuraccy = 20
-        self.trig = None
         self.replace_sin()
         self.replace_cos()
         self.replace_tan()
@@ -57,16 +56,8 @@ class Graph:
                 if self.x_values[i] != None and self.y_values[i] != None and \
                     camera_x + self.x_values[i] - padding < mouse_x < camera_x + self.x_values[i] + padding and \
                     camera_y + self.y_values[i] - padding < mouse_y < camera_y + self.y_values[i] + padding:
-
-                    if self.trig == "sin":
-                        val = sin(self.x_parameters[i] * coef)
-                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
-                    elif self.trig == "cos":
-                        val = cos(self.x_parameters[i] * coef)
-                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
-                    else:
-                        val = eval(self.function.replace("x", f"({self.x_parameters[i] * coef})"))
-                        msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
+                    val = eval(self.function.replace("x", f"({self.x_parameters[i] * coef})"))
+                    msg = self.font.render(f"({self.x_parameters[i] * coef:.2f}, {val:.2f})", True, color)
                     x = camera_x + self.x_values[i] - msg.get_width() // 2
                     y = camera_y + self.y_values[i] - msg.get_height()
                     pygame.draw.rect(window, self.invert_color(color), (x, y, msg.get_width(), msg.get_height()))
@@ -96,7 +87,6 @@ class Graph:
                 i += 1
             sine_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy)
             self.function = self.function.replace(f"sin({parameter})", sine_formula)
-            self.trig = "sin"
             
     def sin_formula_calculator(self, parameter, n):
         formula = ""
@@ -116,7 +106,6 @@ class Graph:
                 i += 1
             cos_formula = self.cos_formula_calculator(parameter, self.sinosoids_accuraccy)
             self.function = self.function.replace(f"cos({parameter})", cos_formula)
-            self.trig = "cos"
 
     def cos_formula_calculator(self, parameter, n):
         formula = ""
