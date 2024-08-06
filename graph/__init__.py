@@ -86,7 +86,7 @@ class Graph:
                 parameter += self.function[i]
                 i += 1
             sine_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"sin({parameter})", sine_formula)
+            self.function = self.function.replace(f"sin({parameter})", f"({sine_formula})")
             
     def sin_formula_calculator(self, parameter, n):
         formula = ""
@@ -105,7 +105,7 @@ class Graph:
                 parameter += self.function[i]
                 i += 1
             cos_formula = self.cos_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"cos({parameter})", cos_formula)
+            self.function = self.function.replace(f"cos({parameter})", f"({cos_formula})")
 
     def cos_formula_calculator(self, parameter, n):
         formula = ""
@@ -124,7 +124,7 @@ class Graph:
                 parameter += self.function[i]
                 i += 1
             e_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+") + " + " + self.cos_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+")
-            self.function = self.function.replace(f"e**({parameter})", e_formula)
+            self.function = self.function.replace(f"e**({parameter})", f"({e_formula})")
 
     def tan_formula_calculator(self, parameter, n):
         formula = ""
@@ -143,7 +143,7 @@ class Graph:
                 parameter += self.function[i]
                 i += 1
             formula = self.tan_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"tan({parameter})", formula)
+            self.function = self.function.replace(f"tan({parameter})", f"({formula})")
 
     def ctg_formula_calculator(self, parameter, n):
         formula = f"1 / ({parameter}) - "
@@ -162,7 +162,7 @@ class Graph:
                 parameter += self.function[i]
                 i += 1
             formula = self.ctg_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"ctg({parameter})", formula)
+            self.function = self.function.replace(f"ctg({parameter})", f"({formula})")
     
     def invert_color(self, color):
         new_color = [0] * 3
