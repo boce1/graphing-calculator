@@ -12,7 +12,7 @@ When cursor is on some point when dots are enabled, user can see cordinates of t
 
 Pressing "r" or "spacebar" read from the input file and reloads functions on the screen
 
-Note: For sin, cos and e**x, parameter must be in parenthesis
+Note: For sin, cos, e**x, tan and ctg parameter must be in parenthesis
 
 example: cos(x), sin(2 * x), e**(x**0.5)
 

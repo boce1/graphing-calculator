@@ -5,12 +5,15 @@ pygame.font.init()
 
 class Graph:
     font = pygame.font.SysFont("Consolas", 12)
+    bernoulli_numbers = (1, -0.5, 0.166, 0, -0.033, 0, 0.0238, 0, -0.033, 0,0.075, 0, -0.253, 0,1.166, 0, -7.092, 0, 54.971, 0)
     def __init__(self, x_vals, window_width, window_height ,unit, function, color):
         self.function = function
         self.sinosoids_accuraccy = 20
         self.trig = None
         self.replace_sin()
         self.replace_cos()
+        self.replace_tan()
+        self.replace_ctg()
         self.replace_exp()
         self.color = color
         self.x_parameters = [val // unit for val in x_vals]
@@ -134,6 +137,44 @@ class Graph:
             e_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+") + " + " + self.cos_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+")
             self.function = self.function.replace(f"e**({parameter})", e_formula)
 
+    def tan_formula_calculator(self, parameter, n):
+        formula = ""
+        cn = ""
+        for i in range(0, n // 2):
+            cn = f"{2**(2 * i) * (2**(2 * i) - 1) * self.bernoulli_numbers[2 * i] / factorial(2 * i)}"
+            formula += f" + ({cn}) * ({parameter})**({2 * i + 1})"
+        return formula
+
+    def replace_tan(self):
+        start_index = self.function.find("tan")
+        if start_index != -1:
+            parameter = ''
+            i = start_index + 4
+            while self.function[i] != ")":
+                parameter += self.function[i]
+                i += 1
+            formula = self.tan_formula_calculator(parameter, self.sinosoids_accuraccy)
+            self.function = self.function.replace(f"tan({parameter})", formula)
+
+    def ctg_formula_calculator(self, parameter, n):
+        formula = f"1 / ({parameter}) - "
+        cn = ""
+        for i in range(1, n // 2):
+            cn = f"{2**(2 * i) * self.bernoulli_numbers[2 * i] / factorial(2 * i)}"
+            formula += f" + ({cn}) * ({parameter})**({2 * i - 1})"
+        return formula
+
+    def replace_ctg(self):
+        start_index = self.function.find("ctg")
+        if start_index != -1:
+            parameter = ''
+            i = start_index + 4
+            while self.function[i] != ")":
+                parameter += self.function[i]
+                i += 1
+            formula = self.ctg_formula_calculator(parameter, self.sinosoids_accuraccy)
+            self.function = self.function.replace(f"ctg({parameter})", formula)
+    
     def invert_color(self, color):
         new_color = [0] * 3
         for i in range(3):
