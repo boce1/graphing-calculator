@@ -78,8 +78,8 @@ def draw_dots():
         pygame.draw.circle(window, grid_color, (camera_x + window_width / 2, camera_y + y_axes_values[i] + ((limit_y / window_height) * 100)), 2)
 
 def draw_axis():
-    pygame.draw.line(window, grid_color, (camera_x + window_width / 2, camera_y - limit_y), (camera_x + window_width / 2, camera_y + window_height + limit_y), 1)
-    pygame.draw.line(window, grid_color, (camera_x - limit_x, camera_y + window_height / 2), (camera_x + window_width + limit_x, camera_y + window_height / 2), 1)
+    pygame.draw.line(window, grid_color, (camera_x + window_width / 2, camera_y - limit_y), (camera_x + window_width / 2, camera_y + window_height * 3 / 2 + limit_y), 1)
+    pygame.draw.line(window, grid_color, (camera_x - limit_x, camera_y + window_height / 2), (camera_x + window_width * 3 / 2 + limit_x, camera_y + window_height / 2), 1)
     draw_dots()
 
 def draw_scene():

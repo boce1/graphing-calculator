@@ -1,5 +1,6 @@
 e**cos(x + sin(2 * x)) + sin(x)
-
+x**x
+abs(cos(x))
 lines with // are invalid functions
 they were usud for testing
 // atan(x)
