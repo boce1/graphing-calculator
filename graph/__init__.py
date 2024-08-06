@@ -1,19 +1,12 @@
 import pygame
-from math import factorial, pi, sin, cos
+from math import *
 
 pygame.font.init()
 
 class Graph:
     font = pygame.font.SysFont("Consolas", 12)
-    bernoulli_numbers = (1, -0.5, 0.166, 0, -0.033, 0, 0.0238, 0, -0.033, 0,0.075, 0, -0.253, 0,1.166, 0, -7.092, 0, 54.971, 0)
     def __init__(self, x_vals, window_width, window_height ,unit, function, color):
         self.function = function
-        self.sinosoids_accuraccy = 20
-        self.replace_sin()
-        self.replace_cos()
-        self.replace_tan()
-        self.replace_ctg()
-        self.replace_exp()
         self.color = color
         self.x_parameters = [val // unit for val in x_vals]
         self.x_values = [val * unit + window_width // 2 for val in self.x_parameters]
@@ -27,12 +20,13 @@ class Graph:
                     self.y_values.append(None)
 
             except ZeroDivisionError:
-                self.y_values.append(None)
+                self.y_values.append(None) # zero devision
             except TypeError:
-                self.y_values.append(None)
+                self.y_values.append(None) # user wrote invalid function
             except OverflowError:
-                self.y_values.append(None)
-
+                self.y_values.append(None) # overflow
+            except ValueError:
+                self.y_values.append(None) # undefined function in point x
                 
     def draw_dots(self, window, camera_x, camera_y, visible):
         if visible:
@@ -83,93 +77,8 @@ class Graph:
                 self.y_values.append(None)
             except OverflowError:
                 self.y_values.append(None)
-
-    def replace_sin(self):
-        start_index = self.function.find("sin")
-        if start_index != -1:
-            parameter = ''
-            i = start_index + 4
-            while self.function[i] != ")":
-                parameter += self.function[i]
-                i += 1
-            sine_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"sin({parameter})", f"({sine_formula})")
-            
-    def sin_formula_calculator(self, parameter, n):
-        formula = ""
-        sign = 0
-        for i in range(1, n + 1, 2):
-            formula += f" + {(-1)**(sign)} * ({parameter})**{i} / {factorial(i)}"
-            sign += 1
-        return formula
-    
-    def replace_cos(self):
-        start_index = self.function.find("cos")
-        if start_index != -1:
-            parameter = ''
-            i = start_index + 4
-            while self.function[i] != ")":
-                parameter += self.function[i]
-                i += 1
-            cos_formula = self.cos_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"cos({parameter})", f"({cos_formula})")
-
-    def cos_formula_calculator(self, parameter, n):
-        formula = ""
-        sign = 0
-        for i in range(0, n + 1, 2):
-            formula += f" + {(-1)**(sign)} * ({parameter})**{i} / {factorial(i)}"
-            sign += 1
-        return formula
-
-    def replace_exp(self):
-        start_index = self.function.find("e")
-        if start_index != -1:
-            parameter = ''
-            i = start_index + 4
-            while self.function[i] != ")":
-                parameter += self.function[i]
-                i += 1
-            e_formula = self.sin_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+") + " + " + self.cos_formula_calculator(parameter, self.sinosoids_accuraccy).replace("-", "+")
-            self.function = self.function.replace(f"e**({parameter})", f"({e_formula})")
-
-    def tan_formula_calculator(self, parameter, n):
-        formula = ""
-        cn = ""
-        for i in range(0, n // 2):
-            cn = f"{2**(2 * i) * (2**(2 * i) - 1) * self.bernoulli_numbers[2 * i] / factorial(2 * i)}"
-            formula += f" + ({cn}) * ({parameter})**({2 * i + 1})"
-        return formula
-
-    def replace_tan(self):
-        start_index = self.function.find("tan")
-        if start_index != -1:
-            parameter = ''
-            i = start_index + 4
-            while self.function[i] != ")":
-                parameter += self.function[i]
-                i += 1
-            formula = self.tan_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"tan({parameter})", f"({formula})")
-
-    def ctg_formula_calculator(self, parameter, n):
-        formula = f"1 / ({parameter}) - "
-        cn = ""
-        for i in range(1, n // 2):
-            cn = f"{2**(2 * i) * self.bernoulli_numbers[2 * i] / factorial(2 * i)}"
-            formula += f" + ({cn}) * ({parameter})**({2 * i - 1})"
-        return formula
-
-    def replace_ctg(self):
-        start_index = self.function.find("ctg")
-        if start_index != -1:
-            parameter = ''
-            i = start_index + 4
-            while self.function[i] != ")":
-                parameter += self.function[i]
-                i += 1
-            formula = self.ctg_formula_calculator(parameter, self.sinosoids_accuraccy)
-            self.function = self.function.replace(f"ctg({parameter})", f"({formula})")
+            except ValueError:
+                self.y_values.append(None)
     
     def invert_color(self, color):
         new_color = [0] * 3

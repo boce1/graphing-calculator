@@ -1,7 +1,16 @@
-abs(x - 5) + 5
-x - 5 - abs(x)
-x**x
-// e**(x)
+atan(x)
+sin(2 * x)
+2 * cos(x)
+// log(x)
+// tan(x)
+// asin(x)
+// acos(x)
+// log(x)
+// sin(x) + cos(10 * x)
+// abs(x - 5) + 5
+// x - 5 - abs(x)
+// x**x
+// e**x
 // cos(x)**2 + sin(x)**2
 // tan(x) - sin(3 *x) + 3 * e**(x**0.5)
 // x * sin(x) - cos(2 * x)

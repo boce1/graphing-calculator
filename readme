@@ -12,10 +12,25 @@ When cursor is on some point when dots are enabled, user can see cordinates of t
 
 Pressing "r" or "spacebar" read from the input file and reloads functions on the screen
 
-Note: For sin, cos, e**x, tan and ctg parameter must be in parenthesis
+Note: functions must be written with Python syntax
 
-example: cos(x), sin(2 * x), e**(x**0.5)
 
-Note: Parenthesis must be next to mentioned functoions, without any spaces
 
-Note: For e**arg: There must not be space between the exponent operator and other characters ("e" and "(" ). They must stand next to each other without any spaces.
+
+Cheatsheet for functions:
+
+sin(x) -> It returns the sine of the number (in radians)
+
+cos(x) -> It returns the cosine of the number (in radians)
+
+tan(x) -> It returns the tangent of the number (in radians)
+
+acos(x) -> It returns the arc cosine of the number (in radians)
+
+asin(x) -> It returns the arc sine of the number (in radians)
+
+atan(x) -> It returns the arc tangent of the number (in radians)
+
+e**x or exp(x) -> It returns e^x (e being the Euler's constant 2.718281828459045235)
+
+log(x) -> It returns logarithm with base e
