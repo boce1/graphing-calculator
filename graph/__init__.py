@@ -21,7 +21,7 @@ class Graph:
         for i in range(len(self.x_parameters)):
             try:
                 val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i]})")) * unit
-                if type(val) != complex:
+                if type(val) != complex and self.undefined_values(self.x_parameters[i]):
                     self.y_values.append(val)
                 else:
                     self.y_values.append(None)
@@ -30,6 +30,9 @@ class Graph:
                 self.y_values.append(None)
             except TypeError:
                 self.y_values.append(None)
+            except OverflowError:
+                self.y_values.append(None)
+
                 
     def draw_dots(self, window, camera_x, camera_y, visible):
         if visible:
@@ -69,7 +72,7 @@ class Graph:
         for i in range(len(self.x_values)):
             try:
                 val = window_height // 2 - eval(self.function.replace("x", f"({self.x_parameters[i] * coefitient})")) * unit / coefitient
-                if type(val) != complex:
+                if type(val) != complex and self.undefined_values(self.x_parameters[i]):
                     self.y_values.append(val)
                 else:
                     self.y_values.append(None)
@@ -77,6 +80,8 @@ class Graph:
             except ZeroDivisionError:
                 self.y_values.append(None)
             except TypeError:
+                self.y_values.append(None)
+            except OverflowError:
                 self.y_values.append(None)
 
     def replace_sin(self):
@@ -174,3 +179,9 @@ class Graph:
             else:
                 new_color[i] = 255 / 2 + abs(255 / 2 - color[i])
         return new_color
+    
+    def undefined_values(self, parameter):
+        # more function will be added
+        if self.function in ("x**x", "x**(x), (x)**(x), (x)**x") and parameter < 0:
+            return False
+        return True

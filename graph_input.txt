@@ -1,4 +1,6 @@
 abs(x - 5) + 5
+x - 5 - abs(x)
+x**x
 // e**(x)
 // cos(x)**2 + sin(x)**2
 // tan(x) - sin(3 *x) + 3 * e**(x**0.5)
